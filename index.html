@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a1230">
+<title>Một chút nhắc nhở dành cho bạn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0a1030; --bg2:#1a1f5c; --panel:rgba(40,44,110,.42);
+  --lav:#c9b8f5; --pink:#f7c5d9; --mint:#b9ecd8; --peach:#ffdcb8;
+  --ink:#eef3ff; --mute:#a3b3da; --pastel:#a9d6f5; --pastel2:#d3ebff;
+  --line:rgba(169,214,245,.18);
+  --sans:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:"Lora",Georgia,"Times New Roman",serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 55%,#3a2f86 100%) fixed;background-color:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+#sky,#burst{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+#sky{z-index:0}
+#burst{z-index:50}
+main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 22px 72px}
+h1,h2,p{margin:0}
+:focus-visible{outline:2px solid var(--pastel);outline-offset:3px;border-radius:6px}
+
+/* hero */
+.hero{padding:clamp(56px,12vh,112px) 0 56px;position:relative}
+.moon{position:absolute;right:2px;top:clamp(40px,9vh,90px);width:54px;height:54px;border-radius:50%;box-shadow:inset -15px 4px 0 0 var(--peach);opacity:.9;filter:drop-shadow(0 0 18px rgba(255,220,184,.35))}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,6.4vw,3.2rem);line-height:1.18;letter-spacing:-.01em;max-width:11em;animation:rise 1.1s cubic-bezier(.2,.7,.2,1) both}
+.lead{color:var(--mute);margin-top:18px;max-width:30em;font-size:1.04rem;animation:rise 1.1s .15s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.now{margin-top:54px;padding-top:26px;border-top:1px solid var(--line);animation:rise 1.1s .3s cubic-bezier(.2,.7,.2,1) both}
+.clock{font-size:clamp(3.2rem,15vw,6rem);font-weight:200;letter-spacing:.01em;line-height:1;font-variant-numeric:tabular-nums;display:inline-block;background:linear-gradient(100deg,var(--pastel2) 10%,var(--lav) 55%,var(--pink) 95%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 22px rgba(201,184,245,.3))}
+.clock small{font-size:.32em;font-weight:300;color:var(--mute);-webkit-text-fill-color:var(--mute);margin-left:.35em;letter-spacing:.04em}
+.date{color:var(--mute);margin-top:10px;font-size:.95rem}
+.moment{margin-top:22px;max-width:32em}
+.moment strong{display:block;font-weight:500;font-size:1.15rem;color:var(--ink);transition:opacity .4s}
+.moment span{color:var(--mute);transition:opacity .4s}
+
+section{padding:46px 0;border-top:1px solid var(--line)}
+h2{font-family:var(--serif);font-weight:400;font-size:1.6rem;margin-bottom:22px}
+
+/* reminders */
+.rem{list-style:none;margin:0;padding:0}
+.rem li{display:grid;grid-template-columns:9.5rem 1fr;gap:6px 24px;padding:20px 0;border-bottom:1px solid var(--line)}
+.rem li:last-child{border-bottom:0}
+.rem b{font-weight:500;color:var(--pastel)}
+.rem li:nth-child(2) b{color:var(--mint)}
+.rem li:nth-child(3) b{color:var(--lav)}
+.rem li:nth-child(4) b{color:var(--pink)}
+.rem p{color:#d4def5}
+
+/* panels */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.progress{display:flex;align-items:center;gap:14px;margin-bottom:12px;color:var(--mute);font-size:.9rem}
+.bar{flex:1;height:5px;border-radius:5px;background:rgba(169,214,245,.14);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--pastel),var(--lav),var(--pink));border-radius:5px;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.todo{list-style:none;margin:0;padding:0}
+.todo label{display:flex;align-items:center;gap:14px;padding:13px 0;cursor:pointer;border-bottom:1px solid var(--line);transition:color .3s}
+.todo li:last-child label{border-bottom:0}
+.todo input{position:absolute;opacity:0;width:1px;height:1px}
+.box{flex:none;width:24px;height:24px;border-radius:8px;border:1.5px solid rgba(169,214,245,.5);display:grid;place-items:center;transition:background .25s,border-color .25s,transform .25s}
+.box svg{width:14px;height:14px;stroke:#0a1230;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .3s .05s}
+.todo input:checked+.box{background:var(--mint);border-color:var(--mint);transform:scale(1.06)}
+.todo input:checked+.box svg{stroke-dashoffset:0}
+.todo input:focus-visible+.box{outline:2px solid var(--pastel2);outline-offset:3px}
+.todo input:checked~.txt{color:var(--mute);text-decoration:line-through;text-decoration-color:rgba(169,214,245,.4)}
+
+.btn{font:inherit;font-weight:500;cursor:pointer;border-radius:999px;padding:13px 26px;border:1px solid transparent;transition:transform .2s,box-shadow .3s,background .3s,color .3s}
+.btn:active{transform:scale(.97)}
+.btn.main{background:linear-gradient(110deg,var(--pastel),var(--lav) 60%,var(--pink));color:#0a1230;box-shadow:0 0 0 0 rgba(169,214,245,.4)}
+.btn.main:hover{box-shadow:0 0 28px 2px rgba(169,214,245,.35)}
+.btn.main.done{background:transparent;color:var(--pastel2);border-color:var(--pastel)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--pastel);color:var(--pastel2)}
+.actions{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.cheer{min-height:1.7em;margin-top:16px;color:var(--pink);font-family:var(--serif);font-style:italic;opacity:0;transform:translateY(6px);transition:opacity .6s,transform .6s}
+.cheer.on{opacity:1;transform:none}
+
+/* bedtime */
+.bed{display:flex;flex-wrap:wrap;gap:22px 40px;align-items:flex-end;justify-content:space-between}
+.count{font-size:clamp(2.4rem,10vw,3.6rem);font-weight:200;font-variant-numeric:tabular-nums;line-height:1.1;color:var(--lav)}
+.count-l{color:var(--mute);font-size:.92rem;margin-top:4px;max-width:20em}
+.setter{display:flex;flex-direction:column;gap:6px;color:var(--mute);font-size:.88rem}
+input[type=time]{font:inherit;font-size:1.1rem;color:var(--ink);background:rgba(7,13,36,.6);border:1px solid var(--line);border-radius:12px;padding:9px 14px;color-scheme:dark}
+input[type=time]:hover{border-color:var(--pastel)}
+
+/* card */
+.card-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .9s cubic-bezier(.2,.7,.2,1);margin-top:26px}
+.card-wrap.open{grid-template-rows:1fr}
+.card-wrap>div{overflow:hidden;min-height:0}
+.card{background:linear-gradient(150deg,#fff3f8,#ebe4ff 55%,#d6ecff);color:#11204f;border-radius:6px;padding:clamp(26px,6vw,44px);font-family:var(--serif);font-size:1.06rem;line-height:1.85;box-shadow:0 24px 60px -20px rgba(0,0,0,.6),0 0 60px -10px rgba(169,214,245,.35);opacity:0;transform:translateY(24px) rotate(-.6deg);transition:opacity .9s .25s,transform 1s .25s cubic-bezier(.2,.7,.2,1)}
+.card-wrap.open .card{opacity:1;transform:rotate(-.4deg)}
+.card p+p{margin-top:1.1em}
+.card .sign{margin-top:1.6em;font-style:italic;color:#34497f;text-align:right}
+footer{text-align:center;color:var(--mute);font-size:.85rem;padding-top:30px;opacity:.7}
+
+/* dialog */
+dialog{border:1px solid var(--line);border-radius:22px;background:linear-gradient(170deg,#2b2c78,#12163f);color:var(--ink);padding:34px 30px 28px;max-width:min(420px,calc(100vw - 40px));text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+dialog::backdrop{background:rgba(4,8,24,.72);backdrop-filter:blur(4px)}
+dialog[open]{animation:pop .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+dialog h3{font-family:var(--serif);font-weight:400;font-size:1.5rem;margin:0 0 12px}
+dialog p{color:#d4def5;margin-bottom:24px}
+dialog .actions{justify-content:center;margin:0}
+
+@media (max-width:560px){
+  main{padding:0 18px 60px}
+  .rem li{grid-template-columns:1fr;gap:2px}
+  .panel{padding:18px}
+  .moon{width:42px;height:42px;box-shadow:inset -12px 3px 0 0 var(--peach)}
+  .actions .btn{flex:1 1 100%}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<canvas id="burst" aria-hidden="true"></canvas>
+
+<main>
+  <header class="hero">
+    <div class="moon" aria-hidden="true"></div>
+    <h1>Một chút nhắc nhở dành cho bạn</h1>
+    <p class="lead">Không cần ngày nào cũng hoàn hảo, chỉ cần hôm nay tốt hơn hôm qua một chút.</p>
+
+    <div class="now">
+      <div class="clock" id="clock" aria-label="Giờ hiện tại">--:--<small>--</small></div>
+      <div class="date" id="date"></div>
+      <div class="moment"><strong id="mTitle"></strong><span id="mText"></span></div>
+    </div>
+  </header>
+
+  <section aria-labelledby="h-rem">
+    <h2 id="h-rem">Vài điều nhỏ cần nhớ</h2>
+    <ul class="rem">
+      <li><b>Học tập</b><p>Học xong việc hôm nay rồi hãy nghỉ ngơi. Đừng để sát deadline mới cuống lên nhé.</p></li>
+      <li><b>Giữ sức khỏe</b><p>Uống đủ nước, ăn uống đúng giờ, đừng mải học mà quên chăm sóc bản thân.</p></li>
+      <li><b>Ngủ sớm</b><p>Muộn rồi thì nghỉ đi, bài vở còn đó nhưng sức khỏe cũng quan trọng. Đừng thức khuya triền miên.</p></li>
+      <li><b>Động lực</b><p>Không cần phải giỏi ngay lập tức. Cứ kiên trì từng ngày, rồi sẽ thấy bản thân tiến bộ.</p></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-todo">
+    <h2 id="h-todo">Việc của hôm nay</h2>
+    <div class="panel">
+      <div class="progress"><span id="pText">0/4</span><div class="bar"><i id="pBar"></i></div></div>
+      <ul class="todo" id="todo"></ul>
+      <div class="actions">
+        <button class="btn main" id="finish" type="button">Tớ hoàn thành hôm nay rồi</button>
+        <button class="btn ghost" id="sleepBtn" type="button">Nhắc tớ đi ngủ</button>
+      </div>
+      <p class="cheer" id="cheer" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-bed">
+    <h2 id="h-bed">Đếm ngược đến giờ đi ngủ</h2>
+    <div class="panel bed">
+      <div>
+        <div class="count" id="count">--:--:--</div>
+        <div class="count-l" id="countL"></div>
+      </div>
+      <label class="setter">Giờ đi ngủ của tớ
+        <input type="time" id="bedTime" value="22:30">
+      </label>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-card">
+    <h2 id="h-card">Lời nhắc cuối ngày</h2>
+    <button class="btn ghost" id="cardBtn" type="button" aria-expanded="false" aria-controls="cardWrap">Mở lời nhắc cuối ngày</button>
+    <div class="card-wrap" id="cardWrap">
+      <div>
+        <article class="card">
+          <p>Nhắc thế thôi chứ việc học vẫn là của cậu nhé. Học cho tốt, ăn uống đầy đủ, ngủ sớm một chút. Đừng để đến lúc mệt rồi mới nhớ ra mình cần nghỉ ngơi.</p>
+          <p>Cứ cố gắng theo cách của cậu. Từng ngày một, rồi mọi thứ sẽ ổn hơn.</p>
+          <p class="sign">— Một người luôn mong cậu học tốt và sống khỏe.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer>Mai lại là một ngày mới.</footer>
+</main>
+
+<dialog id="sleepDlg" aria-labelledby="dlgT">
+  <h3 id="dlgT">Đến lúc nghỉ rồi</h3>
+  <p id="dlgP">Bài vở còn đó, mai làm tiếp cũng được. Cất sách vở, tắt bớt đèn và để đầu óc được nghỉ.</p>
+  <div class="actions">
+    <button class="btn main" id="dlgOk" type="button">Tớ đi ngủ đây</button>
+    <button class="btn ghost" id="dlgClose" type="button">Để lát nữa</button>
+  </div>
+</dialog>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+var KEY="nhac-nho-v1";
+var TASKS=["Học bài","Hoàn thành bài tập","Uống đủ nước","Chuẩn bị đồ cho ngày mai"];
+function pad(n){return n<10?"0"+n:""+n}
+function dayKey(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+
+/* ---------- state ---------- */
+var state={day:dayKey(new Date()),checks:[false,false,false,false],done:false,bed:"22:30"};
+function load(){
+  try{
+    var raw=localStorage.getItem(KEY); if(!raw) return;
+    var s=JSON.parse(raw);
+    if(s&&typeof s==="object"){
+      if(typeof s.bed==="string"&&/^\d{2}:\d{2}$/.test(s.bed)) state.bed=s.bed;
+      if(s.day===state.day&&Array.isArray(s.checks)&&s.checks.length===TASKS.length){
+        state.checks=s.checks.map(Boolean); state.done=!!s.done;
+      }
+    }
+  }catch(e){}
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+load();
+
+/* ---------- starry sky ---------- */
+var sky=$("sky"),sctx=sky.getContext("2d"),stars=[],W=0,H=0;
+function sizeSky(){
+  var r=window.devicePixelRatio||1;
+  W=window.innerWidth;H=window.innerHeight;
+  sky.width=W*r;sky.height=H*r;sctx.setTransform(r,0,0,r,0,0);
+  var n=Math.round(Math.min(150,W*H/9000));
+  stars=[];
+  for(var i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.3,p:Math.random()*6.28,s:Math.random()*.0007+.0003,c:["#dcecff","#dcecff","#dcecff","#f7c5d9","#c9b8f5","#b9ecd8"][i%6]});
+  drawSky(0);
+}
+function drawSky(t){
+  sctx.clearRect(0,0,W,H);
+  for(var i=0;i<stars.length;i++){
+    var s=stars[i],a=reduce?.6:.35+.45*Math.sin(t*s.s*6+s.p);
+    sctx.globalAlpha=Math.max(.08,a);
+    sctx.fillStyle=s.c;
+    sctx.beginPath();sctx.arc(s.x,s.y,s.r,0,6.283);sctx.fill();
+  }
+  sctx.globalAlpha=1;
+}
+(function loop(t){drawSky(t);if(!reduce)requestAnimationFrame(loop)})(0);
+window.addEventListener("resize",sizeSky);sizeSky();
+
+/* ---------- clock & moment ---------- */
+var DAYS=["Chủ nhật","Thứ hai","Thứ ba","Thứ tư","Thứ năm","Thứ sáu","Thứ bảy"];
+var MOMENTS={
+  sang:["Buổi sáng","Một ngày mới bắt đầu. Uống một cốc nước, chọn việc quan trọng nhất và làm trước."],
+  chieu:["Buổi chiều","Đây là lúc hoàn thành bài tập. Làm xong từng phần một, đừng dồn lại đến tối."],
+  toi:["Buổi tối","Kiểm tra lại việc hôm nay, xếp đồ cho ngày mai và bắt đầu chậm lại để chuẩn bị đi ngủ."],
+  khuya:["Khuya rồi","Bài vở để mai cũng được. Cất sách vở đi và ngủ thôi."]
+};
+var lastP="";
+function period(h){return h>=5&&h<12?"sang":h>=12&&h<18?"chieu":h>=18&&h<22?"toi":"khuya"}
+function tickClock(){
+  var d=new Date(),h=d.getHours(),m=d.getMinutes(),s=d.getSeconds();
+  $("clock").innerHTML=pad(h)+":"+pad(m)+"<small>"+pad(s)+"</small>";
+  $("date").textContent=DAYS[d.getDay()]+", "+pad(d.getDate())+"/"+pad(d.getMonth()+1)+"/"+d.getFullYear();
+  var p=period(h);
+  if(p!==lastP){
+    lastP=p;
+    var t=$("mTitle"),x=$("mText");
+    t.style.opacity=x.style.opacity=0;
+    setTimeout(function(){t.textContent=MOMENTS[p][0];x.textContent=MOMENTS[p][1];t.style.opacity=x.style.opacity=1},lastP&&t.textContent?350:0);
+  }
+  if(dayKey(d)!==state.day){state.day=dayKey(d);state.checks=[false,false,false,false];state.done=false;save();renderTodo()}
+}
+
+/* ---------- countdown ---------- */
+function tickCount(){
+  var now=new Date(),b=state.bed.split(":"),t=new Date(now);
+  t.setHours(+b[0],+b[1],0,0);
+  var diff=t-now;
+  if(diff<-5*3600e3){t.setDate(t.getDate()+1);diff=t-now}
+  var el=$("count"),lb=$("countL");
+  if(diff<=0){
+    var over=Math.floor(-diff/60000);
+    el.textContent="Đã đến giờ";
+    lb.textContent=over<1?"Đúng giờ đi ngủ rồi đấy.":"Đã quá giờ đi ngủ "+over+" phút. Nghỉ thôi nhé.";
+  }else{
+    var sec=Math.floor(diff/1000);
+    el.textContent=pad(Math.floor(sec/3600))+":"+pad(Math.floor(sec%3600/60))+":"+pad(sec%60);
+    lb.textContent=diff<=30*60e3?"Còn chưa đến nửa tiếng. Bắt đầu thu dọn thôi.":"Còn lại trước giờ đi ngủ lúc "+state.bed+".";
+  }
+}
+
+/* ---------- todo ---------- */
+var CHECK='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg>';
+function renderTodo(){
+  var ul=$("todo");ul.innerHTML="";
+  TASKS.forEach(function(name,i){
+    var li=document.createElement("li"),lb=document.createElement("label");
+    lb.innerHTML='<input type="checkbox"><span class="box">'+CHECK+'</span><span class="txt"></span>';
+    lb.querySelector(".txt").textContent=name;
+    var cb=lb.querySelector("input");cb.checked=!!state.checks[i];
+    cb.addEventListener("change",function(){state.checks[i]=cb.checked;save();updateProgress()});
+    li.appendChild(lb);ul.appendChild(li);
+  });
+  updateProgress();
+}
+function updateProgress(){
+  var n=state.checks.filter(Boolean).length;
+  $("pText").textContent=n+"/"+TASKS.length;
+  $("pBar").style.width=(n/TASKS.length*100)+"%";
+  var f=$("finish");
+  f.classList.toggle("done",state.done);
+  f.textContent=state.done?"Hôm nay đã xong":"Tớ hoàn thành hôm nay rồi";
+}
+
+/* ---------- finish + burst ---------- */
+var bc=$("burst"),bx=bc.getContext("2d"),parts=[],raf=0;
+function sizeBurst(){var r=window.devicePixelRatio||1;bc.width=innerWidth*r;bc.height=innerHeight*r;bx.setTransform(r,0,0,r,0,0)}
+window.addEventListener("resize",sizeBurst);sizeBurst();
+function burst(x,y){
+  if(reduce)return;
+  var cols=["#a9d6f5","#f7c5d9","#c9b8f5","#b9ecd8"];
+  for(var i=0;i<46;i++){
+    var a=Math.random()*6.283,v=Math.random()*5+1.5;
+    parts.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-2,r:Math.random()*2.4+1,life:1,c:cols[i%4]});
+  }
+  if(!raf)raf=requestAnimationFrame(stepBurst);
+}
+function stepBurst(){
+  bx.clearRect(0,0,innerWidth,innerHeight);
+  parts=parts.filter(function(p){return p.life>0});
+  parts.forEach(function(p){
+    p.x+=p.vx;p.y+=p.vy;p.vx*=.97;p.vy=p.vy*.97+.08;p.life-=.012;
+    bx.globalAlpha=Math.max(0,p.life);bx.fillStyle=p.c;
+    bx.shadowColor=p.c;bx.shadowBlur=8;
+    bx.beginPath();bx.arc(p.x,p.y,p.r,0,6.283);bx.fill();
+  });
+  bx.globalAlpha=1;bx.shadowBlur=0;
+  if(parts.length)raf=requestAnimationFrame(stepBurst);else{raf=0;bx.clearRect(0,0,innerWidth,innerHeight)}
+}
+var cheerTimer;
+function cheer(msg){
+  var c=$("cheer");c.classList.remove("on");
+  clearTimeout(cheerTimer);
+  setTimeout(function(){c.textContent=msg;c.classList.add("on")},120);
+  cheerTimer=setTimeout(function(){c.classList.remove("on")},9000);
+}
+$("finish").addEventListener("click",function(e){
+  var left=state.checks.filter(function(v){return !v}).length;
+  state.done=true;save();updateProgress();
+  var r=e.currentTarget.getBoundingClientRect();
+  burst(r.left+r.width/2,r.top+r.height/2);
+  cheer(left===0
+    ?"Xong hết rồi. Hôm nay cậu làm tốt lắm, giờ nghỉ ngơi thôi."
+    :"Còn "+left+" việc chưa tick, nhưng cậu đã cố gắng rồi. Việc nào dang dở thì mai làm tiếp.");
+});
+
+/* ---------- sleep dialog ---------- */
+var dlg=$("sleepDlg");
+var SLEEP_MSG=[
+  "Bài vở còn đó, mai làm tiếp cũng được. Cất sách vở, tắt bớt đèn và để đầu óc được nghỉ.",
+  "Ngủ đủ giấc cũng là một phần của việc học. Mai dậy cậu sẽ làm việc hiệu quả hơn nhiều.",
+  "Thức thêm một lúc chưa chắc làm được thêm bao nhiêu. Nghỉ đi, mai bắt đầu lại nhẹ nhàng hơn."
+];
+$("sleepBtn").addEventListener("click",function(){
+  $("dlgP").textContent=SLEEP_MSG[Math.floor(Math.random()*SLEEP_MSG.length)];
+  if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","");
+});
+function closeDlg(){if(dlg.close)dlg.close();else dlg.removeAttribute("open")}
+$("dlgClose").addEventListener("click",closeDlg);
+$("dlgOk").addEventListener("click",function(){closeDlg();cheer("Chúc cậu ngủ ngon. Hẹn mai gặp lại.")});
+dlg.addEventListener("click",function(e){if(e.target===dlg)closeDlg()});
+
+/* ---------- bedtime setter ---------- */
+var bt=$("bedTime");bt.value=state.bed;
+bt.addEventListener("change",function(){
+  if(/^\d{2}:\d{2}$/.test(bt.value)){state.bed=bt.value;save();tickCount()}
+  else bt.value=state.bed;
+});
+
+/* ---------- card ---------- */
+$("cardBtn").addEventListener("click",function(){
+  var w=$("cardWrap"),open=!w.classList.contains("open");
+  w.classList.toggle("open",open);
+  this.setAttribute("aria-expanded",open);
+  this.textContent=open?"Gấp lại":"Mở lời nhắc cuối ngày";
+  if(open)setTimeout(function(){w.scrollIntoView({behavior:reduce?"auto":"smooth",block:"nearest"})},500);
+});
+
+/* ---------- start ---------- */
+renderTodo();tickClock();tickCount();
+setInterval(function(){tickClock();tickCount()},1000);
+})();
+</script>
+</body>
+</html>
